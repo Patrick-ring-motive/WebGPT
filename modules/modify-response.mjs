@@ -1,26 +1,18 @@
-
-
 export default function modifyResponse(res) {
 
   res = removeQuestions(res);
-
 
   res = res.replace(/Based on the information you provided earlier. /g, '');
 
   res = res.replaceAll("I'm sorry, User, ", '');
 
-
   res = res.replaceAll("I'm sorry, ", '');
 
   res = res.replaceAll("a support agent", 'an AI');
 
-
   res = res.replaceAll("support agent", 'AI');
 
-
   res = res.replaceAll("User", 'Individual');
-
-
 
   let resc = res.trim();
   if (resc[resc.length - 1] == ',') {
@@ -33,7 +25,6 @@ export default function modifyResponse(res) {
     res = res.replaceAll('not from the Matrix', 'from the Matrix').replaceAll('not part of the Matrix', 'part of the Matrix').replaceAll('not a part of the Matrix', 'a part of the Matrix');
   }
 
-
   if (res.indexOf('utocode') > -1) {
     res = res.replaceAll('Autocode.com', 'the Matrix').replaceAll('autocode.com', 'the Matrix').replaceAll('Autocode', 'the Matrix').replaceAll('autocode', 'the Matrix');
   }
@@ -42,8 +33,8 @@ export default function modifyResponse(res) {
   res = res.replace('the Matrix or the Matrix', 'the Matrix');
   res = res.replace(/(Certainly|Sure thing|Sure|Of course). Individual./g, '');
   res = res.replace(/(Certainly|Sure thing|Of course)[^ ]/g, '');
-  res = res.replace(/Let me know if there is anything else I can help you with./g,'');
-  res=res.replace(/According to the source you provided./g,'');
+  res = res.replace(/Let me know if there is anything else I can help you with./g, '');
+  res = res.replace(/According to the source you provided./g, '');
   res = res.trim();
 
   res = res[0].toUpperCase() + res.slice(1);
@@ -51,14 +42,16 @@ export default function modifyResponse(res) {
   return res;
 }
 
-
 function removeQuestions(text) {
-
 
   let qtext = text.replaceAll('.', '?').replaceAll('!', '?').trim();
   let qtext_list = qtext.split('?');
-  if (qtext_list.length < 3) { qtext_list = text.replaceAll('.', '?').replaceAll('!', '?').replaceAll(';', '?').replaceAll(':', '?')/*.replaceAll(',', '?')*/.trim().split('?'); }
-  if (qtext_list.length < 3) { return text; };
+  if (qtext_list.length < 3) {
+    qtext_list = text.replaceAll('.', '?').replaceAll('!', '?').replaceAll(';', '?').replaceAll(':', '?') /*.replaceAll(',', '?')*/ .trim().split('?');
+  }
+  if (qtext_list.length < 3) {
+    return text;
+  };
   let last_qtext = qtext_list[qtext_list.length - 2];
   if ((last_qtext.indexOf('I may help') > -1) ||
     (last_qtext.indexOf('ay I help') > -1) ||
